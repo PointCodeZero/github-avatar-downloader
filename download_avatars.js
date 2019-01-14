@@ -1,7 +1,14 @@
 const request = require('request');
 
 function getRepoContributors(repoOwner, repoName, cb) {
-  var url = `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`;
+  var options = {
+    url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
+    headers: {
+      'User-Agent': 'request',
+      Authorization: 'token 98569aac26ea6b58d064ff859813591bf23e64bd'
+    }
+  };
+
   request(url, (err, res, body) => {
     cb(err, body)
   });
