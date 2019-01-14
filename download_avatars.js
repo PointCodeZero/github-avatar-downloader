@@ -1,15 +1,16 @@
-const request = require('request');
+const request = require('request'),
+      secret  = require('./secret');
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
     headers: {
       'User-Agent': 'request',
-      Authorization: 'token 98569aac26ea6b58d064ff859813591bf23e64bd'
+      secret
     }
   };
 
-  request(url, (err, res, body) => {
+  request(options, (err, res, body) => {
     cb(err, body)
   });
 }
