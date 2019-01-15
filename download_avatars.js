@@ -17,8 +17,10 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-function getAllUserAvatars(err, data) {
-  data.forEach((user) => console.log(user.avatar_url));
+function urlAndFilePathGenerator(err, data) {
+  data.forEach((user) => {
+    downloadImageByURL(user.avatar_url, `avatars/${user.login}.jpg`);
+  });
 }
 
 function downloadImageByURL(url, filePath) {
@@ -26,11 +28,12 @@ function downloadImageByURL(url, filePath) {
     .on('error', (err) => {
       throw err;
     })
-    .pipe(fs.createWriteStream(filePath));
+    .pipe(fs.createWriteStream(filePath))
+    .on('finish', () => console.log('Requested completed!'));
 }
 
-// console.log('Welcome to the GitHub Avatar Downloader!');
-// getRepoContributors("jquery", "jquery", getAllUserAvatars)
-// downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
+console.log('Welcome to the GitHub Avatar Downloader!');
+getRepoContributors("jquery", "jquery", urlAndFilePathGenerator)
+
 
 
