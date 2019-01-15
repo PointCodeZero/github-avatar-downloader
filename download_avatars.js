@@ -1,4 +1,6 @@
-const request = require('request'),
+const repoOwner = process.argv[2],
+      repoName  = process.argv[3],
+      request = require('request'),
       fs      = require('fs'),
       secret  = require('./secret');
 
@@ -32,8 +34,9 @@ function downloadImageByURL(url, filePath) {
     .on('finish', () => console.log('Requested completed!'));
 }
 
-console.log('Welcome to the GitHub Avatar Downloader!');
-getRepoContributors("jquery", "jquery", urlAndFilePathGenerator)
+// console.log('Welcome to the GitHub Avatar Downloader!');
+getRepoContributors(repoOwner, repoName, urlAndFilePathGenerator)
+
 
 
 
