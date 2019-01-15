@@ -14,6 +14,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
   };
 
   request(options, (err, res, body) => {
+    if (res.statusCode !== 200) {
+      return console.log('Please insert the repository owner and name!');
+    }
     var data = JSON.parse(body);
     cb(err, data);
   });
